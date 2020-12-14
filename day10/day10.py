@@ -1,6 +1,10 @@
 import numpy as np
+import time
 
 data = np.sort(np.loadtxt('input'))
+
+
+t0 = time.time()
 # Add voltage of outlet
 data = np.insert(data, 0, 0)
 # Add voltage of your device
@@ -17,12 +21,17 @@ def compute_differences(data, step):
     # Do not report boundary values
     return differences[:-step]
 
+
 differences = compute_differences(data, step=1)
 print('Solution Day10.1', len(
     differences[differences == 1])*len(differences[differences == 3]))
 
+print((time.time()-t0)*1000, ' ms')
+
 
 # Day 2:
+
+t0 = time.time()
 last_element = data[-1]
 
 # dictionary: {'adpater_value': number of different paths to connect to it}
@@ -44,3 +53,4 @@ for adapter in data[1:]: # we already added the 0 element before entering the lo
 
 num_combinations = dict_tree[last_element]
 print('Solution Day 10.2 Num combinations', num_combinations)
+print((time.time()-t0)*1000, ' ms')
